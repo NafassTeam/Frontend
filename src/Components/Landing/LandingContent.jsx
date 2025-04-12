@@ -1,12 +1,12 @@
 import React from "react";
 import SYJButton from "./SYJButton.jsx";
 import SYJDButton from "./SYJDButton.jsx";
-import Sad from "/home/mira/Desktop/react_projects/NAFASS/src/assets/Sad.png";
 import Containerimg from "/home/mira/Desktop/react_projects/NAFASS/src/assets/LandingContainer.jpeg";
+
 
 const LandingContent = () => {
   return (
-    <section className="flex justify-center md:mt-[-125px] mt-[-20px] px-6 md:px-10 pb-10">
+    <section className="flex justify-center md:mt-[-115px] mt-[-20px] px-6 md:px-10 pb-10">
       <div
         className="relative py-12 md:px-24 md:py-13 rounded-[40px] max-w-250 w-full flex flex-col md:flex-row items-center justify-between gap-5 md:gap-0 px-10 z-[10] md:z-[30] overflow-hidden "
         style={{
@@ -42,9 +42,14 @@ const LandingContent = () => {
 
         <div className="relative z-10 pr-0">
           <img
-            src={Sad}
-            alt="Confused character"
-            className="w-[130px] md:w-[220px] mb-[-52px] mt-0  md:mt-10 md:mr-0 md:ml-0"
+            src="https://s3-alpha-sig.figma.com/img/7114/9b3a/091bb851950c13b105744e58d9e0eec4?Expires=1745193600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=X~nSSpPZmOGl7M-u~rRVmiVUkUmfprzftQNNzUZKmUVpHnQMQnA~G6q~wdeeASE5ZNhCaT6dkKPGUBwQKFybi2hArRLVCWTLzQsu64svPo02Hd3lStH1~iOjYNhKaPYHHN6yea8NiGVv9AIP0NEi6ZWBVfx8Pg6IN3mdRSLrVoPt9SnxWjFYaw~HS-qFCIY915jIlPsfgYxe0xbTUJ0lgZQmMY2cT-8riGFPC5lP6VSZJqbO~L7HJcooFUxvmkaS7dpBAV~zYpwvManlIV3ofnAg8rS6L1ZZv3YEYrYmcfK84Y0U8XM1jBWCTX2xRHqVQ0vAA-Ce~YKnlCXIoT~gZQ__"
+            alt="Your description"
+            className="w-[65px] md:w-[110px] mb-[-82px] mt-0 md:mt-20 md:mr- md:ml-53 ml-26"
+          />
+          <img
+            src="https://s3-alpha-sig.figma.com/img/9a0a/3f81/d560ef59ce5b15b99dba1061569dfb3a?Expires=1745193600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=m0Zl~t~SaUkCbElKh323lZgiFMhBNpQMu0R5W-bQUZLE5MZ-am5Ya3ozc1X7GbP~PeN7mWe9iZ75G6~gjoqvTwdOij7oSc5dx0Go4E7ReU5o4vVpkZgdSau5DK3SCIrnpifHOYRHXopB7PCPD9Duabn~ghQKBg1Gbuf2cey1JjpqJXiYkAZ9VWX5BUEq81wzBuJZ3x0QAIC5BsR-WTkvEHq4ABtaSee4p9keaUPA6z2sA8e6~dz5QbTAxdvYq9okCKu43hMzCjyeUJLixVDkC8od~Jp1MMrLVGvC0YUm2xqwfw-GVpmsP9kciSxMguBdMzu-~H-WX1bWy43mHNrRaA__"
+            alt="Your description"
+            className="w-[270px] md:w-[500px] md:h-[200px] mb-[-52px] mt-20  md:mt-25 md:mr-0 md:ml-20 "
           />
         </div>
       </div>
