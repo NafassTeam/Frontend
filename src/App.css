@@ -9,3 +9,10 @@
     --font-mulish: "Mulish", "sans-serif";
     --font-inter: "Inter", "sans-serif";
   }
+
+  input:-webkit-autofill {
+    box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.3) inset !important;
+    -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.3) inset !important;
+    -webkit-text-fill-color: black !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }

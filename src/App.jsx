@@ -1,14 +1,9 @@
-import './App.css'
-import Home from "./Pages/Home.jsx";
 import React from 'react';
-import Background from '/src/Components/Background.jsx';
+import AppRoutes from './Routes/AppRoutes';
+import './App.css'
 
 const App = () => {
-  return (
-    <Background>
-      <Home />
-    </Background>
-  );
+  return <AppRoutes />;
 };
 
 export default App;
