@@ -84,7 +84,7 @@ const Navbar = () => {
                     </NavLink>
 
                     <NavLink
-                        to="/Frontend/login"
+                        to="/Frontend/Login"
                         className={({ isActive }) =>
                             `border border-white rounded-full px-4 py-1 transition-colors ${
                                 isActive

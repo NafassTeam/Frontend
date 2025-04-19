@@ -4,6 +4,9 @@ import Apply from '/src/Pages/LandingTherapist.jsx';
 import PersonalInfo from "/src/Pages/PersonalInfoForm.jsx";
 import ProfessionalInfoForm from '../Pages/ProfessionalInfoForm';
 import CreateAccount from "../Pages/CreateAccount.jsx";
+import Login from "../Pages/PatientLogin.jsx";
+import Register from "../Pages/PatientRegistration.jsx";
+
 
 const AppRoutes = () => {
   return (
@@ -13,6 +16,8 @@ const AppRoutes = () => {
       <Route path="/Frontend/Personal-info" element={<PersonalInfo />} />
       <Route path="/Frontend/professional-info" element={<ProfessionalInfoForm />} />
       <Route path="/Frontend/Create-account" element={<CreateAccount />} />
+      <Route path="/Frontend/Login" element={<Login />} />
+      <Route path="/Frontend/Register" element={<Register />} />
     </Routes>
   );
 };
