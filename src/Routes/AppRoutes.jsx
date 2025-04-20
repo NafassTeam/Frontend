@@ -6,6 +6,7 @@ import ProfessionalInfoForm from '../Pages/ProfessionalInfoForm';
 import CreateAccount from "../Pages/CreateAccount.jsx";
 import Login from "../Pages/PatientLogin.jsx";
 import Register from "../Pages/PatientRegistration.jsx";
+import VerifyEmail from "../Pages/VerifyEmail.jsx";
 
 
 const AppRoutes = () => {
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       <Route path="/Frontend/Create-account" element={<CreateAccount />} />
       <Route path="/Frontend/Login" element={<Login />} />
       <Route path="/Frontend/Register" element={<Register />} />
+      <Route path="/Frontend/Verify-email" element={<VerifyEmail />} />
     </Routes>
   );
 };
