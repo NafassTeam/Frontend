@@ -8,7 +8,7 @@ const BackgroundWrapper = ({ children }) => {
       style={{ backgroundImage: `url(${BG2})` }}
     >
       <div className="absolute w-full h-full z-0">
-        <div className="absolute w-[150%] h-[150%] bg-green-600 rounded-full blur-3xl opacity-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute w-[150%] h-[150%] bg-[#00FF26] rounded-full blur-3xl opacity-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
       </div>
       {children}
     </div>
