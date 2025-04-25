@@ -4,9 +4,14 @@ import BackgroundProInfo from '/src/Components/BackgroundProInfo.jsx';
 import { useNavigate } from 'react-router-dom';
 import { FiUploadCloud } from 'react-icons/fi';
 import axios from 'axios';
+import { useLocation } from 'react-router'
 
 const ProfessionalInformation = () => {
   const navigate = useNavigate();
+  
+  const location = useLocation();
+  const prevFormData = location.state;
+  console.log('Previous form data:', prevFormData);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -25,7 +30,8 @@ const ProfessionalInformation = () => {
     navigate('/Frontend/personal-info');
   };
 
-  const handleChange = (name, value) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value,
@@ -41,29 +47,36 @@ const ProfessionalInformation = () => {
 
   const handleNext = async (e) => {
     e.preventDefault();
-
-    const emptyFields = Object.entries(formData).filter(([key, value]) => value.trim() === '');
+    
+    // Check if all fields are filled
+    const emptyFields = Object.entries(formData).filter(([key, value]) => {
+      // Check if value exists and if it's a string, then trim it
+      return typeof value === 'string' ? value.trim() === '' : !value;
+    });
+    
     if (emptyFields.length > 0 || !uploadedFile) {
       setError('Please fill out all fields and upload your diploma.');
       return;
     }
-
+  
+    // Combine previous form data with current form data
+    const combinedData = {
+      ...prevFormData,
+      ...formData,
+    };
+  
     const formDataToSend = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
+    Object.entries(combinedData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
     formDataToSend.append('diploma', uploadedFile);
-
+  
     try {
       //wherever u hosting ig
-      await axios.post('http://localhost:8000/api/professional-info/', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data', 
-        },
-      });
-
+      console.log('Submitting form data:', combinedData);
+  
       //next step
-      navigate('/Frontend/create-account');
+      navigate('/Frontend/create-account', { state: combinedData });
     } catch (err) {
       console.error(err);
       setError('Failed to submit professional info. Please try again.');

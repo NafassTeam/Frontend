@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Background from '/src/Components/BackgroundRegister.jsx';
 import FormInput from '/src/Components/FormInput.jsx';
-
+import { useLocation } from 'react-router'
+import axios from 'axios';
+  
 const CreateAccount = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const prevFormData = location.state;
+  console.log('Previous form data:', prevFormData);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -14,12 +18,13 @@ const CreateAccount = () => {
 
   const [error, setError] = useState(null);
 
-  const handleChange = (name, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({
+    ...prev,
+    [name]: value,
+  }));
+};
 
   const handleCheckboxChange = (e) => {
     setFormData(prev => ({
@@ -32,7 +37,7 @@ const CreateAccount = () => {
     e.preventDefault();
 
     const { email, password, agreed } = formData;
-
+    
     if (!email || !password) {
       setError('Please fill in all fields.');
       return;
@@ -47,8 +52,47 @@ const CreateAccount = () => {
       email,
       password,
     };
-
     console.log("Register submitted", requestPayload);
+
+    let combinedData = {
+      ...prevFormData,
+      ...formData,
+    };
+    console.log('Combined data:', combinedData);
+    try {
+      combinedData = {
+        "address": "3131  Doctors Drive",
+        "agreed": true,
+        "birth_date": "2025-04-18",
+        "city": "CA",
+        "country": "Algeria",
+        "diploma": "sdfdf",
+        "email": "selloudsfmfsdmoncif.555@gmail.com",
+        "experience": "123",
+        "first_name": "Moncif",
+        "gender": "F",
+        "languages": "sdfsdf",
+        "last_name": "Selloum",
+        "license": "sdfsdfsdf",
+        "password": "moncif.0202",
+        "phone_number": "0667075016",
+        "specializations": "sdfsdf",
+        "title": "fsdf",
+        "university": "sdf",
+        "username" : "user121212"
+    }
+      axios.post('http://localhost:8000/auth/Create/therapist/', combinedData)
+        .then(response => {
+          console.log('Account created successfully:', response.data);
+        })
+        .catch(error => {
+          console.error('Error creating account:', error);
+          setError('Failed to create account. Please try again.');
+        });
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      setError('An unexpected error occurred. Please try again.');
+    }
 
     setError(null);
     navigate('/Frontend/success'); //nhar t designa la page nchallah

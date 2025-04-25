@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import FormInput from '/src/Components/FormInput.jsx';
 import BackgroundPersonalInfo from '/src/Components/BackgroundPersonalInfo.jsx';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 const PersonalInfoForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    first_name: '', 
-    last_name: '',  
-    birth_date: '',  
+    first_name: '',
+    last_name: '',
+    birth_date: '',
     gender: '',
     phone_number: '',
     address: '',
@@ -21,7 +21,8 @@ const PersonalInfoForm = () => {
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (name, value) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value,
@@ -32,7 +33,7 @@ const PersonalInfoForm = () => {
     e.preventDefault();
     setError(null);
 
-    
+    // Check for empty fields
     const emptyFields = Object.entries(formData).filter(([key, value]) => value.trim() === '');
     if (emptyFields.length > 0) {
       setError('Please fill out all fields before continuing.');
@@ -41,12 +42,24 @@ const PersonalInfoForm = () => {
 
     setIsSubmitting(true);
     try {
-      //wherever u hosting ig
-      await axios.post('http://localhost:8000/api/personal-info/', formData);
-      navigate('/Frontend/professional-info');
+      // Send API request
+      console.log('Submitting form data:', formData);
+      navigate('/Frontend/professional-info', { state: formData });
+      // const response = await axios.post('http://localhost:8000/api/personal-info/', formData);
+
+      // // Handle success
+      // if (response.status === 201) {
+      // } else {
+      //   setError('Unexpected response from the server. Please try again.');
+      // }
     } catch (err) {
       console.error(err);
-      setError('Failed to submit personal info. Please try again.');
+      // if (err.response && err.response.data) {
+      //   // Display specific error from the API
+      //   setError(err.response.data.message || 'Failed to submit personal info. Please try again.');
+      // } else {
+      //   setError('Failed to submit personal info. Please try again.');
+      // }
     } finally {
       setIsSubmitting(false);
     }
@@ -71,7 +84,6 @@ const PersonalInfoForm = () => {
             Personal Information
           </h2>
 
-         
           <FormInput label="First Name" name="first_name" value={formData.first_name} onChange={handleChange} />
           <FormInput label="Last Name" name="last_name" value={formData.last_name} onChange={handleChange} />
           <FormInput label="Date of Birth" name="birth_date" type="date" value={formData.birth_date} onChange={handleChange} />
@@ -86,9 +98,8 @@ const PersonalInfoForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full mt-17 text-white py-2 px-4 rounded-[20px] transition font-mulish ${
-              isSubmitting ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#002A17] hover:bg-green-500'
-            }`}
+            className={`w-full mt-17 text-white py-2 px-4 rounded-[20px] transition font-mulish ${isSubmitting ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#002A17] hover:bg-green-500'
+              }`}
           >
             {isSubmitting ? 'Submitting...' : 'Next'}
           </button>

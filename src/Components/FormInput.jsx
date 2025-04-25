@@ -24,7 +24,7 @@ const FormInput = ({
             name={name}
             required={required}
             value={value}
-            onChange={(e) => onChange(name, e.target.value)}
+            onChange={onChange}
             className="peer block w-full appearance-none py-2.5 pl-7 pr-8 text-sm font-mulish text-black bg-transparent border-0 border-b-2 border-[#002A17] focus:outline-none focus:ring-0 focus:text-black focus:border-[#BFFF66]"
           >
             <option value="" disabled hidden></option>
@@ -53,7 +53,7 @@ const FormInput = ({
             name={name}
             required={required}
             value={value}
-            onChange={(e) => onChange(name, e.target.value)}
+            onChange={onChange}
             className="peer block w-full py-2.5 px-0 text-sm font-mulish text-black bg-transparent border-0 border-b-2 border-[#002A17] appearance-none focus:outline-none focus:ring-0 focus:text-black focus:border-[#BFFF66]"
             placeholder=""
           />
