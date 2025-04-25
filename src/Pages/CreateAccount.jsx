@@ -11,6 +11,7 @@ const CreateAccount = () => {
   const prevFormData = location.state;
   console.log('Previous form data:', prevFormData);
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
     agreed: false,
@@ -36,9 +37,9 @@ const CreateAccount = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { email, password, agreed } = formData;
+    const { username, email, password, agreed } = formData;
     
-    if (!email || !password) {
+    if (!email || !password || !username) {
       setError('Please fill in all fields.');
       return;
     }
@@ -48,39 +49,39 @@ const CreateAccount = () => {
       return;
     }
 
-    const requestPayload = {
-      email,
-      password,
-    };
-    console.log("Register submitted", requestPayload);
+    // const requestPayload = {
+    //   email,
+    //   password,
+    // };
+    // console.log("Register submitted", requestPayload);
 
-    let combinedData = {
+    const combinedData = {
       ...prevFormData,
       ...formData,
     };
     console.log('Combined data:', combinedData);
     try {
-      combinedData = {
-        "address": "3131  Doctors Drive",
-        "agreed": true,
-        "birth_date": "2025-04-18",
-        "city": "CA",
-        "country": "Algeria",
-        "diploma": "sdfdf",
-        "email": "selloudsfmfsdmoncif.555@gmail.com",
-        "experience": "123",
-        "first_name": "Moncif",
-        "gender": "F",
-        "languages": "sdfsdf",
-        "last_name": "Selloum",
-        "license": "sdfsdfsdf",
-        "password": "moncif.0202",
-        "phone_number": "0667075016",
-        "specializations": "sdfsdf",
-        "title": "fsdf",
-        "university": "sdf",
-        "username" : "user121212"
-    }
+    //   combinedData = {
+    //     "address": "3131  Doctors Drive",
+    //     "agreed": true,
+    //     "birth_date": "2025-04-18",
+    //     "city": "CA",
+    //     "country": "Algeria",
+    //     "diploma": "sdfdf",
+    //     "email": "selloudsfmfsdmoncif.555@gmail.com",
+    //     "experience": "123",
+    //     "first_name": "Moncif",
+    //     "gender": "F",
+    //     "languages": "sdfsdf",
+    //     "last_name": "Selloum",
+    //     "license": "sdfsdfsdf",
+    //     "password": "moncif.0202",
+    //     "phone_number": "0667075016",
+    //     "specializations": "sdfsdf",
+    //     "title": "fsdf",
+    //     "university": "sdf",
+    //     "username" : "user121212"
+    // }
       axios.post('http://localhost:8000/auth/Create/therapist/', combinedData)
         .then(response => {
           console.log('Account created successfully:', response.data);
@@ -109,7 +110,7 @@ const CreateAccount = () => {
           <span className="h-[13px] w-[13px] rounded-full bg-[#F7F5F2]"></span>
           <span className="h-[13px] w-[13px] rounded-full bg-[#F7F5F2]"></span>
           <span className="w-[30px] h-[30px] rounded-full bg-[#00FF88]"></span>
-        </div>
+        </div> 
       </div>
 
       <div className="flex items-center justify-center min-h-screen">
@@ -121,6 +122,13 @@ const CreateAccount = () => {
             Create an account
           </h2>
 
+          <FormInput
+            label="Username"
+            name="username"
+            type="text"
+            value={formData.username}
+            onChange={handleChange}
+          />
           <FormInput
             label="Email"
             name="email"

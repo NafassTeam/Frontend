@@ -87,7 +87,7 @@ const PersonalInfoForm = () => {
           <FormInput label="First Name" name="first_name" value={formData.first_name} onChange={handleChange} />
           <FormInput label="Last Name" name="last_name" value={formData.last_name} onChange={handleChange} />
           <FormInput label="Date of Birth" name="birth_date" type="date" value={formData.birth_date} onChange={handleChange} />
-          <FormInput label="Gender" name="gender" isSelect={true} options={['Male', 'Female']} value={formData.gender} onChange={handleChange} />
+          <FormInput label="Gender" name="gender" isSelect={true} options={['M', 'F']} value={formData.gender} onChange={handleChange} />
           <FormInput label="Phone Number" name="phone_number" type="tel" value={formData.phone_number} onChange={handleChange} />
           <FormInput label="Address" name="address" value={formData.address} onChange={handleChange} />
           <FormInput label="Country/State" name="country" value={formData.country} onChange={handleChange} />
