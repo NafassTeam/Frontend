@@ -55,7 +55,7 @@ const VerifyEmail = () => {
       <section className="relative z-10 flex justify-center px-6 md:px-10">
         <div
           className="relative py-12 md:px-40 md:py-6 rounded-[40px] max-w-300 w-full flex-col md:flex-row items-center justify-between gap-5 md:gap-0 px-10 z-[10] md:z-[30] overflow-hidden"
-          style={{ boxShadow: '0px 0px 50.9px 0px #00000040' }}
+          style={{ boxShadow: "0px 0px 50.9px 0px #00000040" }}
         >
           <div className="absolute inset-0 z-0 rounded-[40px] border-4 border-white bg-white"></div>
 

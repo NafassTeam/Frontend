@@ -55,7 +55,7 @@ const CreateAccount = () => {
     // };
     // console.log("Register submitted", requestPayload);
 
-    const combinedData = {
+    let combinedData = {
       ...prevFormData,
       ...formData,
     };
@@ -68,8 +68,8 @@ const CreateAccount = () => {
     //     "city": "CA",
     //     "country": "Algeria",
     //     "diploma": "sdfdf",
-    //     "email": "selloudsfmfsdmoncif.555@gmail.com",
-    //     "experience": "123",
+    //     "email": "selloudsdfsfmfsdmoncif.555@gmail.com",
+    //     "experience_years": "123",
     //     "first_name": "Moncif",
     //     "gender": "F",
     //     "languages": "sdfsdf",
@@ -80,9 +80,9 @@ const CreateAccount = () => {
     //     "specializations": "sdfsdf",
     //     "title": "fsdf",
     //     "university": "sdf",
-    //     "username" : "user121212"
+    //     "username" : "usersdfsf121212"
     // }
-      axios.post('http://localhost:8000/auth/Create/therapist/', combinedData)
+      axios.post('http://nafassbackend-production.up.railway.app/auth/register/therapist/', combinedData)
         .then(response => {
           console.log('Account created successfully:', response.data);
         })

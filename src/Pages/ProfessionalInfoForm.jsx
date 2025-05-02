@@ -17,7 +17,7 @@ const ProfessionalInformation = () => {
     title: '',
     diploma: '',
     university: '',
-    experience: '',
+    experience_years: '',
     specializations: '',
     languages: '',
     license: '',
@@ -105,7 +105,7 @@ const ProfessionalInformation = () => {
           <FormInput label="Professional Title" name="title" value={formData.title} onChange={handleChange} />
           <FormInput label="Diploma / Degree" name="diploma" value={formData.diploma} onChange={handleChange} />
           <FormInput label="University / Institution" name="university" value={formData.university} onChange={handleChange} />
-          <FormInput label="Years of Experience" name="experience" type="number" value={formData.experience} onChange={handleChange} />
+          <FormInput label="Years of Experience" name="experience" type="number" value={formData.experience_years} onChange={handleChange} />
           <FormInput label="Specializations" name="specializations" value={formData.specializations} onChange={handleChange} />
           <FormInput label="Languages Spoken" name="languages" value={formData.languages} onChange={handleChange} />
           <FormInput label="License / Authorization Number" name="license" value={formData.license} onChange={handleChange} />
