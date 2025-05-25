@@ -18,9 +18,9 @@ const ProfessionalInformation = () => {
     diploma: '',
     university: '',
     experience_years: '',
-    specializations: '',
-    languages: '',
-    license: '',
+    specialization: '',
+    languages_spoken: '',
+    authorization_number: '',
   });
 
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -105,10 +105,10 @@ const ProfessionalInformation = () => {
           <FormInput label="Professional Title" name="title" value={formData.title} onChange={handleChange} />
           <FormInput label="Diploma / Degree" name="diploma" value={formData.diploma} onChange={handleChange} />
           <FormInput label="University / Institution" name="university" value={formData.university} onChange={handleChange} />
-          <FormInput label="Years of Experience" name="experience" type="number" value={formData.experience_years} onChange={handleChange} />
-          <FormInput label="Specializations" name="specializations" value={formData.specializations} onChange={handleChange} />
-          <FormInput label="Languages Spoken" name="languages" value={formData.languages} onChange={handleChange} />
-          <FormInput label="License / Authorization Number" name="license" value={formData.license} onChange={handleChange} />
+          <FormInput label="Years of Experience" name="experience_years" type="number" value={formData.experience_years} onChange={handleChange} />
+          <FormInput label="Specializations" name="specialization" value={formData.specialization} onChange={handleChange} />
+          <FormInput label="Languages Spoken" name="languages_spoken" value={formData.languages_spoken} onChange={handleChange} />
+          <FormInput label="License / Authorization Number" name="authorization_number" value={formData.authorization_number} onChange={handleChange} />
 
           <div className="relative my-6 flex flex-col gap-2">
             <label className="flex items-center gap-2 text-sm font-mulish text-[#01270D]">

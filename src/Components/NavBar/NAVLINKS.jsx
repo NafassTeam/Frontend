@@ -14,6 +14,8 @@ const NavLinks = () => {
                 Apply for Nafass Job
             </NavLink>
 
+            <span className="text-white text-[7px] mt-2">•</span>
+
             <NavLink
                 to="/Frontend/why"
                 className={({ isActive }) =>
@@ -22,6 +24,8 @@ const NavLinks = () => {
             >
                 Why Nafass
             </NavLink>
+
+            <span className="text-white text-[7px] mt-2">•</span>
 
             <NavLink
                 to="/Frontend/help"

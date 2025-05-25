@@ -82,7 +82,7 @@ const CreateAccount = () => {
     //     "university": "sdf",
     //     "username" : "usersdfsf121212"
     // }
-      axios.post('http://nafassbackend-production.up.railway.app/auth/register/therapist/', combinedData)
+      axios.post('https://nafassbackend-production.up.railway.app/auth/register/therapist/', combinedData)
         .then(response => {
           console.log('Account created successfully:', response.data);
         })
@@ -96,7 +96,7 @@ const CreateAccount = () => {
     }
 
     setError(null);
-    navigate('/Frontend/success'); //nhar t designa la page nchallah
+    navigate('/Frontend/Verify-email'); //nhar t designa la page nchallah
   };
 
   const handleBack = () => {

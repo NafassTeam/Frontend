@@ -13,19 +13,24 @@ const PatientLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    const loginData = {
+      email: emailOrUsername,
+      password: password,
+    };
+
+    // Log the data to the console before sending it
+    console.log("Data to be sent to the API:", loginData);
+
     try {
-      const response = await axios.post("http://localhost:8000/api/login/", { //or wherever u hosting
-        username: emailOrUsername,  
-        password: password
-      });
+      const response = await axios.post("https://nafassbackend-production.up.railway.app/auth/login/", loginData);
 
       console.log("Login successful:", response.data);
 
-      //if token is returned
-      //localStorage.setItem("token", response.data.token);
+      // If token is returned
+      localStorage.setItem("token", response.data.access);
 
-      // Redirecting to the dashboard or another page after successful login  until amdjed idesignii TT TT
-      navigate("/Frontend/dashboard"); //route doesn't exist yet until the dashboard is created
+      // Redirecting to the dashboard or another page after successful login
+      navigate("/Frontend/dashboard");
     } catch (err) {
       console.error("Login failed:", err);
       setError("Invalid credentials. Please try again.");

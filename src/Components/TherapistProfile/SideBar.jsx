@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from "@material-tailwind/react";
 import dfUser from "/src/assets/DftPfp.png";
-import { UserIcon, MailIcon, ClockIcon, LayoutDashboardIcon, UsersIcon, LogOutIcon } from 'lucide-react';
-import { getUnreadMessages, getPendingAppointments } from '/src/Services/therapistService';
+import {
+    UserIcon,
+    MailIcon,
+    ClockIcon,
+    LayoutDashboardIcon,
+    UsersIcon
+} from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPersonWalking } from '@fortawesome/free-solid-svg-icons';
+import { Link, useLocation } from 'react-router-dom';
 
 const SideBar = () => {
     const [unreadMessages, setUnreadMessages] = useState(1);
     const [pendingAppointments, setPendingAppointments] = useState(100);
-    
+    const location = useLocation();
+
     useEffect(() => {
         fetchUnreadMessages();
         fetchPendingAppointments();
@@ -17,7 +24,8 @@ const SideBar = () => {
 
     const fetchUnreadMessages = async () => {
         try {
-            const res = await getUnreadMessages();
+            // Simulated API call
+            const res = { data: { unreadMessages: 3 } };
             setUnreadMessages(res.data.unreadMessages);
         } catch (error) {
             console.error('Failed to fetch unread messages:', error);
@@ -26,7 +34,8 @@ const SideBar = () => {
 
     const fetchPendingAppointments = async () => {
         try {
-            const res = await getPendingAppointments();
+            // Simulated API call
+            const res = { data: { pendingRequests: 5 } };
             setPendingAppointments(res.data.pendingRequests);
         } catch (error) {
             console.error('Failed to fetch pending appointments:', error);
@@ -34,25 +43,21 @@ const SideBar = () => {
     };
 
     const [user, setUser] = useState(null);
-    const [activeItem, setActiveItem] = useState('profile');
 
     useEffect(() => {
         const mockUser = {
             name: 'Dr. Thomas',
-            profileImage: '', // Simulate no uploaded image
+            profileImage: '',
         };
-
-        setTimeout(() => {
-            setUser(mockUser);
-        }, 500);
+        setTimeout(() => setUser(mockUser), 500);
     }, []);
 
     const sidebarItems = [
-        { key: 'profile', label: 'Profile', icon: <UserIcon size={18} /> },
-        { key: 'messages', label: 'Messages', icon: <MailIcon size={18} />, badge: unreadMessages },
-        { key: 'appointments', label: 'Appointments', icon: <ClockIcon size={18} />, badge: pendingAppointments },
-        { key: 'dashboard', label: 'Dashboard', icon: <LayoutDashboardIcon size={18} /> },
-        { key: 'patients', label: 'Patients', icon: <UsersIcon size={18} /> },
+        { key: 'profile', label: 'Profile', icon: <UserIcon size={18} />, path: '/Frontend/profile' },
+        { key: 'messages', label: 'Messages', icon: <MailIcon size={18} />, path: '/Frontend/messages', badge: unreadMessages },
+        { key: 'appointments', label: 'Appointments', icon: <ClockIcon size={18} />, path: '/Frontend/appointments', badge: pendingAppointments },
+        { key: 'dashboard', label: 'Dashboard', icon: <LayoutDashboardIcon size={18} />, path: '/Frontend/dashboard' },
+        { key: 'patients', label: 'Patients', icon: <UsersIcon size={18} />, path: '/Frontend/patients' },
     ];
 
     return (
@@ -80,11 +85,11 @@ const SideBar = () => {
 
                 <div className="w-[150px] mt-10">
                     {sidebarItems.map((item) => (
-                        <button
+                        <Link
+                            to={item.path}
                             key={item.key}
-                            onClick={() => setActiveItem(item.key)}
                             className={`flex items-center gap-2 w-full px-3 py-2 my-1.5 rounded-[10px] text-[10px] font-inter font-medium relative
-                                ${activeItem === item.key
+                                ${location.pathname === item.path
                                 ? 'bg-[#43E373]/60 text-black'
                                 : 'hover:bg-[#43E373]/30 text-black'}
                             `}
@@ -97,29 +102,25 @@ const SideBar = () => {
                                     {item.badge > 99 ? '99+' : item.badge}
                                 </span>
                             )}
-                        </button>
+                        </Link>
                     ))}
                 </div>
 
                 <button
                     onClick={() => alert('Logging out...')}
                     className="relative group w-[150px] px-5 py-2 my-5 h-[38px] rounded-[10px] text-[10px] font-inter font-medium overflow-hidden text-black mt-30"
-                    >
+                >
                     <div className="absolute inset-0 bg-gradient-to-r from-[#D8D8D8] to-[#EFEFEF] transition-opacity duration-500 group-hover:opacity-0"></div>
-
                     <div className="absolute inset-0 bg-gradient-to-r from-[#FF154B] to-[#ffb9c5] opacity-0 transition-opacity duration-800 group-hover:opacity-100"></div>
-
                     <div className="relative z-10 flex items-center gap-2">
                         <FontAwesomeIcon
-                        icon={faPersonWalking}
-                        size="xl"
-                        className="transition-colors duration-500 group-hover:text-white"
+                            icon={faPersonWalking}
+                            size="xl"
+                            className="transition-colors duration-500 group-hover:text-white"
                         />
                         <span className="group-hover:text-white transition-colors duration-300">Logout</span>
                     </div>
                 </button>
-
-
             </div>
         </aside>
     );

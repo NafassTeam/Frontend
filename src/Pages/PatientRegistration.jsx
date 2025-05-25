@@ -6,13 +6,14 @@ import AuthCard from "/src/Components/Registration/AuthCard";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const MOCK = true; //trj3 false kinlinkiw bel backend
 
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
-    agree: false,    // Checkbox state if the user doesn't agree to the terms it is set to false by default
+    agree: false,
   });
 
   const [error, setError] = useState(null);
@@ -33,6 +34,15 @@ const RegisterForm = () => {
       return;
     }
 
+    // just an alt kbal manlinkiw
+    if (MOCK) {
+      console.log("Mock registration data:", formData);
+      localStorage.setItem("userEmail", formData.email);
+      navigate("/Frontend/Verify-email");
+      return;
+    }
+
+    // when linked
     try {
       const response = await axios.post("http://localhost:8000/api/register/", {
         first_name: formData.first_name,
@@ -42,10 +52,7 @@ const RegisterForm = () => {
       });
 
       console.log("Registration successful:", response.data);
-
-      // token
-      // localStorage.setItem("token", response.data.token);
-
+      localStorage.setItem("userEmail", formData.email);
       navigate("/Frontend/Verify-email");
     } catch (err) {
       console.error("Registration failed:", err);
