@@ -35,20 +35,23 @@ const RegisterForm = () => {
     }
 
     // just an alt kbal manlinkiw
-    if (MOCK) {
-      console.log("Mock registration data:", formData);
-      localStorage.setItem("userEmail", formData.email);
-      navigate("/Frontend/Verify-email");
-      return;
-    }
+    // if (MOCK) {
+    //   console.log("Mock registration data:", formData);
+    //   localStorage.setItem("userEmail", formData.email);
+    //   navigate("/Frontend/Verify-email");
+    //   return;
+    // }
 
     // when linked
     try {
-      const response = await axios.post("http://localhost:8000/api/register/", {
+      const response = await axios.post("https://nafassbackend-production.up.railway.app/auth/register/patient/", {
         first_name: formData.first_name,
         last_name: formData.last_name,
         email: formData.email,
         password: formData.password,
+        role : "patient",
+        gender : "M",
+        username : formData.email.split("@")[0], // using email prefix as username
       });
 
       console.log("Registration successful:", response.data);
