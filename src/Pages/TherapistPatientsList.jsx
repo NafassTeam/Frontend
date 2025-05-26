@@ -4,6 +4,7 @@ import BackgroundTProfil from "/src/Components/BackgroundTProfil.jsx";
 import SideBar from "/src/Components/TherapistProfile/SideBar.jsx";
 import NavBar from "/src/Components/TherapistProfile/NavBar.jsx";
 import mainContainer from "/src/assets/Rectangle 32.png";
+import { useNavigate } from 'react-router-dom';
 
 // Mock Data
 const mockPatients = [
@@ -29,6 +30,7 @@ const TherapistProfile = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
   const navItems = ['Your Patients', 'Matching', 'Requests'];
 
   const simulateAPICall = (data, delay = 1000) =>
@@ -37,18 +39,11 @@ const TherapistProfile = () => {
   const fetchPatientsData = async () => {
     try {
       setLoading(true);
-
-      // When real backend is ready, replace these:
-      // const p1 = await fetch('/api/patients').then(res => res.json());
-      // const p2 = await fetch('/api/matched').then(res => res.json());
-      // const p3 = await fetch('/api/requests').then(res => res.json());
-
       const [p1, p2, p3] = await Promise.all([
         simulateAPICall(mockPatients),
         simulateAPICall(mockMatchedPatients),
         simulateAPICall(mockRequests),
       ]);
-
       setPatients(p1);
       setMatchedPatients(p2);
       setRequests(p3);
@@ -85,15 +80,20 @@ const TherapistProfile = () => {
     }
   };
 
-  const renderPatientList = (list, type) => (
+  const handlePatientClick = (patient) => {
+    navigate('/Frontend/patient-profile', { state: { patient } });
+  };
+
+  const renderPatientList = (list, type) =>
     list.map((patient) => (
       <div
         key={patient.id}
-        className="flex items-center justify-between bg-white/40 rounded-xl px-6 py-4"
+        onClick={() => handlePatientClick(patient)}
+        className="flex items-center justify-between bg-white/40 rounded-xl px-6 py-4 cursor-pointer hover:bg-white/70 transition"
       >
         <div className="flex items-center space-x-4">
-          <img 
-            src={dfUser} 
+          <img
+            src={dfUser}
             alt="User Avatar"
             className="w-16 h-16 rounded-full object-cover shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
           />
@@ -104,7 +104,7 @@ const TherapistProfile = () => {
         </div>
 
         {type === 'requests' ? (
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-2" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => handleApprove(patient.id)}
               className="bg-[#00FF88] hover:bg-[#00cc6f] font-bold text-[12px] text-[#00270D] px-4 py-1 rounded-[5px]"
@@ -120,15 +120,17 @@ const TherapistProfile = () => {
           </div>
         ) : (
           <button
-            onClick={() => handleRemove(patient.id, type)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRemove(patient.id, type);
+            }}
             className="bg-[#FF154B] hover:bg-red-600 font-bold text-[10px] text-white px-4 py-2 rounded-[5px]"
           >
             Remove Patient
           </button>
         )}
       </div>
-    ))
-  );
+    ));
 
   const renderCurrentSection = () => {
     if (loading) return <p className="text-center text-gray-500">Loading patients...</p>;

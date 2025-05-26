@@ -11,9 +11,9 @@
   }
 
   input:-webkit-autofill {
-    box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.3) inset !important;
-    -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.3) inset !important;
-    -webkit-text-fill-color: black !important;
+    box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.3) inset ;
+    -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.3) inset ;
+    -webkit-text-fill-color: black ;
     transition: background-color 5000s ease-in-out 0s;
   }
   @layer utilities {
@@ -25,3 +25,10 @@
      scrollbar-width: none;
     }
    }
+
+.react-calendar__tile--active {
+  @apply bg-blue-500 text-white;
+}
+.react-calendar__tile--now {
+  @apply bg-gray-100;
+}

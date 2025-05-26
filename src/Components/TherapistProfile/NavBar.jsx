@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from "/src/assets/Rectangle 25.png"; 
+import logo from "/src/assets/logoblack.png"; 
 import NavLink from "/src/Components/TherapistProfile/NAVLINKS.jsx";
 
 const NavBar = () => {

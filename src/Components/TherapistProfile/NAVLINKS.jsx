@@ -50,7 +50,7 @@ const NavLinks = () => {
                 </NavLink>
 
                 <NavLink
-                    to="/Frontend/profil"
+                    to="/Frontend/profile"
                     className={({ isActive }) =>
                         isActive ? "text-[#BFFF66]" : "hover:text-[#5FE086] transition-colors"
                     }

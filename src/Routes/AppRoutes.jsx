@@ -13,7 +13,7 @@ import Messages from "../Pages/TherapistMessages.jsx";
 import Appointments from "../Pages/TherapistAppointements.jsx";
 import Dashboard from "../Pages/TherapistDashboard.jsx";
 import Patients from "../Pages/TherapistPatientsList.jsx";
-
+import PatientProfile from "/src/Components/TherapistProfile/PatientProfile.jsx";
 
 const AppRoutes = () => {
   return (
@@ -32,6 +32,7 @@ const AppRoutes = () => {
       <Route path="/Frontend/appointments" element={<Appointments />} />
       <Route path="/Frontend/dashboard" element={<Dashboard />} />
       <Route path="/Frontend/patients" element={<Patients />} />
+      <Route path="/Frontend/patient-profile" element={<PatientProfile />} />
     </Routes>
   );
 };

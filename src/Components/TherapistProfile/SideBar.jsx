@@ -35,7 +35,7 @@ const SideBar = () => {
     const fetchPendingAppointments = async () => {
         try {
             // Simulated API call
-            const res = { data: { pendingRequests: 5 } };
+            const res = { data: { pendingRequests: 6 } };
             setPendingAppointments(res.data.pendingRequests);
         } catch (error) {
             console.error('Failed to fetch pending appointments:', error);
