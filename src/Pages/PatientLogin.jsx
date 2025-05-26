@@ -28,6 +28,8 @@ const PatientLogin = () => {
 
       // If token is returned
       localStorage.setItem("token", response.data.access);
+      localStorage.setItem("userEmail", response.data.user.email);
+      localStorage.setItem("userRole", response.data.user.role);
 
       // Redirecting to the dashboard or another page after successful login
       navigate("/Frontend/dashboard");

@@ -1,114 +1,86 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-const NavLinks = () => {
-    return ( 
-        <div className="flex space-x-8 text-white text-sm font-inter">
-            <NavLink
-                to="/Frontend/apply"
-                className={({ isActive }) =>
-                    isActive ? "text-[#BFFF66]" : "hover:text-[#5FE086] transition-colors"
-                }
-            >
-                Apply for Nafass Job
-            </NavLink>
+// Scroll to a section on the page
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
-            <span className="text-white text-[7px] mt-2">•</span>
+// Reusable links for desktop and mobile
+const NavLinks = ({ isMobile = false, onLinkClick }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === "/" || location.pathname === "/Frontend";
 
-            <NavLink
-                to="/Frontend/why"
-                className={({ isActive }) =>
-                    isActive ? "text-[#BFFF66]" : "hover:text-[#5FE086] transition-colors"
-                }
-            >
-                Why Nafass
-            </NavLink>
+  const handleNavigation = (sectionId) => {
+    if (isHomePage) {
+      scrollToSection(sectionId);
+    } else {
+      navigate("/Frontend", { state: { scrollTo: sectionId } });
+    }
+    if (onLinkClick) onLinkClick();
+  };
 
-            <span className="text-white text-[7px] mt-2">•</span>
+  const linkClass =
+    "hover:text-[#5FE086] transition-colors text-sm text-white font-inter";
 
-            <NavLink
-                to="/Frontend/help"
-                className={({ isActive }) =>
-                    isActive ? "text-[#BFFF66]" : "hover:text-[#5FE086] transition-colors"
-                }
-            >
-                Help
-            </NavLink>
-        </div>
-    );
+  return (
+    <>
+      <button onClick={() => { navigate("/Frontend/Apply"); if (onLinkClick) onLinkClick(); }} className={linkClass}>
+        Apply for Nafass Job
+      </button>
+      <button onClick={() => handleNavigation("why-nafass")} className={linkClass}>
+        Why Nafass
+      </button>
+      <button onClick={() => handleNavigation("help")} className={linkClass}>
+        Help
+      </button>
+      <NavLink
+        to="/Frontend/Login"
+        className={({ isActive }) =>
+          `border border-white rounded-full px-4 py-1 transition-colors ${
+            isActive
+              ? "bg-white text-black"
+              : "text-white bg-transparent hover:bg-white hover:text-black"
+          }`
+        }
+        onClick={onLinkClick}
+      >
+        Login
+      </NavLink>
+    </>
+  );
 };
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleNavbar = () => setIsOpen(!isOpen);
 
-    const toggleNavbar = () => setIsOpen(!isOpen);
+  return (
+    <nav>
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex space-x-8">
+        <NavLinks />
+      </div>
 
-    return (
-        <>
-            <nav>
-                <div className="hidden md:flex">
-                    <NavLinks />
-                </div>
-            </nav>
+      {/* Mobile Navigation */}
+      <div className="md:hidden">
+        <button onClick={toggleNavbar} className="text-white">
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
 
-            {isOpen && (
-                <div className="md:hidden flex flex-col items-center gap-4 mt-4">
-                    <NavLink
-                        to="/Frontend/apply"
-                        className={({ isActive }) =>
-                            `text-lg ${
-                                isActive ? "text-[#BFFF66]" : "text-white hover:text-[#5FE086] transition-colors"
-                            }`
-                        }
-                    >
-                        Apply for Nafass Job
-                    </NavLink>
-
-                    <NavLink
-                        to="/Frontend/why"
-                        className={({ isActive }) =>
-                            `text-lg ${
-                                isActive ? "text-[#BFFF66]" : "text-white hover:text-[#5FE086] transition-colors"
-                            }`
-                        }
-                    >
-                        Why Nafass
-                    </NavLink>
-
-                    <NavLink
-                        to="/Frontend/help"
-                        className={({ isActive }) =>
-                            `text-lg ${
-                                isActive ? "text-[#BFFF66]" : "text-white hover:text-[#5FE086] transition-colors"
-                            }`
-                        }
-                    >
-                        Help
-                    </NavLink>
-
-                    <NavLink
-                        to="/Frontend/Login"
-                        className={({ isActive }) =>
-                            `border border-white rounded-full px-4 py-1 transition-colors ${
-                                isActive
-                                    ? "bg-white text-black"
-                                    : "text-white bg-transparent hover:bg-white hover:text-black"
-                            }`
-                        }
-                    >
-                        Login
-                    </NavLink>
-                </div>
-            )}
-
-            <div className="md:hidden justify-end">
-                <button onClick={toggleNavbar} className="text-white">
-                    {isOpen ? <X size={28} /> : <Menu size={28} />}
-                </button>
-            </div>
-        </>
-    );
+        {isOpen && (
+          <div className="flex flex-col items-center gap-4 mt-4">
+            <NavLinks isMobile onLinkClick={toggleNavbar} />
+          </div>
+        )}
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
