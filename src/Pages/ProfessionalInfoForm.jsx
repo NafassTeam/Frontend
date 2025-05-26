@@ -3,7 +3,7 @@ import FormInput from '/src/Components/FormInput.jsx';
 import BackgroundProInfo from '/src/Components/BackgroundProInfo.jsx';
 import { useNavigate } from 'react-router-dom';
 import { FiUploadCloud } from 'react-icons/fi';
-import axios from 'axios';
+// import axios from 'axios';
 import { useLocation } from 'react-router'
 
 const ProfessionalInformation = () => {

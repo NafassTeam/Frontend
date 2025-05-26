@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FormInput from '/src/Components/FormInput.jsx';
 import BackgroundPersonalInfo from '/src/Components/BackgroundPersonalInfo.jsx';
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 const PersonalInfoForm = () => {
   const navigate = useNavigate();
@@ -45,21 +45,21 @@ const PersonalInfoForm = () => {
       // Send API request
       console.log('Submitting form data:', formData);
       navigate('/Frontend/professional-info', { state: formData });
-      // const response = await axios.post('http://localhost:8000/api/personal-info/', formData);
+      const response = await axios.post('http://localhost:8000/api/personal-info/', formData);
 
       // // Handle success
-      // if (response.status === 201) {
-      // } else {
-      //   setError('Unexpected response from the server. Please try again.');
-      // }
+      if (response.status === 201) {
+      } else {
+        setError('Unexpected response from the server. Please try again.');
+      }
     } catch (err) {
       console.error(err);
-      // if (err.response && err.response.data) {
-      //   // Display specific error from the API
-      //   setError(err.response.data.message || 'Failed to submit personal info. Please try again.');
-      // } else {
-      //   setError('Failed to submit personal info. Please try again.');
-      // }
+      if (err.response && err.response.data) {
+        // Display specific error from the API
+        setError(err.response.data.message || 'Failed to submit personal info. Please try again.');
+      } else {
+        setError('Failed to submit personal info. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -98,8 +98,9 @@ const PersonalInfoForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full mt-17 text-white py-2 px-4 rounded-[20px] transition font-mulish ${isSubmitting ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#002A17] hover:bg-green-500'
-              }`}
+            className={`w-full mt-17 text-white py-2 px-4 rounded-[20px] transition font-mulish ${
+              isSubmitting ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#002A17] hover:bg-green-500'
+            }`}
           >
             {isSubmitting ? 'Submitting...' : 'Next'}
           </button>
