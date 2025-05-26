@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ6 = () => {
   const navigate = useNavigate();
-
-  const [familyStatus, setFamilyStatus] = useState(null); // 'alive', 'divorced', etc.
-  const [relationship, setRelationship] = useState(null); // 'good', 'normal', 'poor'
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
+ 
+  const [familyStatus, setFamilyStatus] = useState(null); 
+  const [relationship, setRelationship] = useState(null); 
   const [error, setError] = useState(null);
 
   const relationshipMap = {
@@ -24,21 +26,22 @@ const RegisterQ6 = () => {
       setError("Please select your parental status.");
       return;
     }
-
+  
     if (familyStatus !== "deceased" && !relationship) {
       setError("Please describe your relationship.");
       return;
     }
-
+  
     const value =
       familyStatus === "deceased"
         ? 12
-        : relationshipMap[familyStatus][relationship];
-
-    localStorage.setItem("familySituation", value);
+        : relationshipMap[familyStatus][relationship]; // already scoring properly
+  
+    const updatedResponses = [...prevResponses, value];
     setError(null);
-    navigate("/Frontend/Register-Q7");
+    navigate("/Frontend/Register-Q7", { state: { responses: updatedResponses } });
   };
+  
 
   const statusOptions = [
     { key: "alive", label: "Both parents alive" },

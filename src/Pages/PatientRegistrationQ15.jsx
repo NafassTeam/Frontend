@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ15 = () => {
   const navigate = useNavigate();
-  const [suicidalThoughts, setSuicidalThoughts] = useState(null);
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
+ 
+ const [suicidalThoughts, setSuicidalThoughts] = useState(null);
   const [frequency, setFrequency] = useState(null);
   const [error, setError] = useState(null);
 
@@ -21,15 +24,18 @@ const RegisterQ15 = () => {
       return;
     }
 
-    setError(null);
+    const suicidalResponse = suicidalThoughts === "yes" ? parseInt(frequency) : 3;
+    const updatedResponses = [...prevResponses, suicidalResponse];    setError(null);
 
     if (suicidalThoughts === "yes") {
-      localStorage.setItem("suicidalThoughts", parseInt(frequency)); // store as number
+      localStorage.setItem("suicidalThoughts", parseInt(frequency));
     } else {
-      localStorage.setItem("suicidalThoughts", 3); // "No" = 3
+      localStorage.setItem("suicidalThoughts", 3);
     }
 
-    navigate("/Frontend/Register-Q16");
+    localStorage.setItem("suicidalThoughts", suicidalResponse); 
+
+    navigate("/Frontend/Register-Q16", { state: { responses: updatedResponses } });
   };
 
   const isNextDisabled = () => {

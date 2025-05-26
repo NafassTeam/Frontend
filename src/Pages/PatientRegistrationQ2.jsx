@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
-import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ2 = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // 
+  const prevResponses = location.state?.responses || [];
+
   const [age, setAge] = useState("");
   const [error, setError] = useState(null);
 
@@ -16,13 +19,14 @@ const RegisterQ2 = () => {
       setError("Please enter a valid age between 5 and 100.");
       return;
     }
-
+  
     setError(null);
-    localStorage.setItem("age", age);
-    navigate("/Frontend/Register-Q3");
+  
+    const updatedResponses = [...prevResponses, parseInt(age, 10)];
+    console.log("Q2 Responses:", updatedResponses);
+    navigate("/Frontend/Register-Q3", { state: { responses: updatedResponses } });
   };
-  const Age = localStorage.getItem("age");
-
+  
   return (
     <BackgroundWrapper>
       <AuthCard>

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ17 = () => {
   const navigate = useNavigate();
-  const [consumptionStatus, setConsumptionStatus] = useState(null);
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
+ 
+ const [consumptionStatus, setConsumptionStatus] = useState(null);
   const [error, setError] = useState(null);
 
   const handleNext = () => {
@@ -15,13 +18,13 @@ const RegisterQ17 = () => {
       return;
     }
 
+    const updatedResponses = [...prevResponses,consumptionStatus];
     setError(null);
-    localStorage.setItem("consumptionStatus", consumptionStatus); // Store the numeric value in localStorage
-    navigate("/Frontend/Register");  // Adjust this route to the next question
+    navigate("/Frontend/Register", { state: { responses: updatedResponses } }); 
   };
 
   const isNextDisabled = () => {
-    return consumptionStatus === null; // Disable the Next button until an option is selected
+    return consumptionStatus === null; 
   };
 
   return (

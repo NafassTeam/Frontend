@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard";
 import NextQ1Button from "/src/Components/Registration/NextQ1Button";
 
 const RegisterQ10 = () => {
   const navigate = useNavigate();
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
 
   const [preference, setPreference] = useState("");
   const [error, setError] = useState("");
@@ -20,17 +22,17 @@ const RegisterQ10 = () => {
   ];
 
   const handleNext = () => {
-    if (!preference) {
-      setError("Please select a therapist preference.");
-      return;
-    }
+  if (!preference) {
+    setError("Please select a therapist preference.");
+    return;
+  }
 
-    const selected = options.find((o) => o.label === preference);
-    const fullResponse = `${selected.label} (${selected.score})`;
+  const selected = options.find((o) => o.label === preference);
+  if (!selected) return;
 
-    localStorage.setItem("therapist_preference", fullResponse); // Store full string
-    navigate("/Frontend/Register-Q11"); // Update with the actual next route
-  };
+  const updatedResponses = [...prevResponses, selected.score];
+  navigate("/Frontend/Register-Q11", { state: { responses: updatedResponses } });
+};
 
   return (
     <BackgroundWrapper>

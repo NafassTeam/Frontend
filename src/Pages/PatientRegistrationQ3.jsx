@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
-import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ3 = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const prevResponses = location.state?.responses || [];
+
   const [residency, setResidency] = useState("");
   const [error, setError] = useState(null);
 
@@ -17,12 +20,15 @@ const RegisterQ3 = () => {
       setError("Please enter a valid state number between 1 and 58.");
       return;
     }
-
+  
     setError(null);
-    localStorage.setItem("residency", residency);
-    navigate("/Frontend/Register-Q4");
+  
+    const updatedResponses = [...prevResponses, num]; 
+    console.log("Q3 Responses:", updatedResponses);
+    navigate("/Frontend/Register-Q4", { state: { responses: updatedResponses } });
   };
-  const residence = localStorage.getItem("residency");
+  
+
   return (
     <BackgroundWrapper>
       <AuthCard>

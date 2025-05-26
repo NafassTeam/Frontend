@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ14 = () => {
   const navigate = useNavigate();
-  const [feelings, setFeelings] = useState("");
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
+ 
+ const [feelings, setFeelings] = useState("");
   const [error, setError] = useState(null);
 
   const options = [
@@ -26,9 +29,10 @@ const RegisterQ14 = () => {
     const selected = options.find((opt) => opt.label === feelings);
     const fullValue = `${selected.label} (${selected.score})`;
 
-    localStorage.setItem("feelings", fullValue);
+    const updatedResponses = [...prevResponses, selected.score];
     setError(null);
-    navigate("/Frontend/Register-Q15");
+    navigate("/Frontend/Register-Q15" ,{ state: { responses: updatedResponses } });
+
   };
 
   return (

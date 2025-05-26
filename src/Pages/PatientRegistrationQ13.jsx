@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ13 = () => {
   const navigate = useNavigate();
+  const location = useLocation(); 
+  const prevResponses = location.state?.responses || []; 
+
   const [eatingBehavior, setEatingBehavior] = useState("");
   const [error, setError] = useState(null);
 
@@ -22,11 +25,14 @@ const RegisterQ13 = () => {
     }
 
     const selected = options.find((opt) => opt.label === eatingBehavior);
-    const fullValue = `${selected.label} (${selected.score})`;
+    if (!selected) {
+      setError("Invalid selection.");
+      return;
+    }
 
-    localStorage.setItem("eating_behavior", fullValue);
+    const updatedResponses = [...prevResponses, selected.score]; // ✅ push score
     setError(null);
-    navigate("/Frontend/Register-Q14"); // Update this route if needed
+    navigate("/Frontend/Register-Q14", { state: { responses: updatedResponses } });
   };
 
   return (

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard";
 import NextQ1Button from "/src/Components/Registration/NextQ1Button";
 
 const RegisterQ7 = () => {
   const navigate = useNavigate();
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
 
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
@@ -21,12 +23,14 @@ const RegisterQ7 = () => {
       setError("Please select one of the options.");
       return;
     }
-
+  
     const selected = options.find((o) => o.label === status);
-    localStorage.setItem("status_score", selected.score); // Store score or send to API
-
-    navigate("/Frontend/Register-Q8"); // Replace with the next question's path
+    if (!selected) return;
+  
+    const updatedResponses = [...prevResponses, selected.score];
+    navigate("/Frontend/Register-Q8", { state: { responses: updatedResponses } });
   };
+  
 
   return (
     <BackgroundWrapper>

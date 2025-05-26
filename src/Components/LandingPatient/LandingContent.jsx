@@ -6,11 +6,11 @@ import Containerimg from "/src/assets/LandingContainer.jpeg";
 
 const LandingContent = () => {
   return (
-    <section className="flex justify-center md:mt-[-115px] mt-[-20px] px-6 md:px-10 pb-10">
+    <section id="home" className="flex justify-center md:mt-[-115px] mt-[-20px] px-6 md:px-10 pb-10">
       <div
-        className="relative py-12 md:px-24 md:py-13 rounded-[40px] max-w-250 w-full flex flex-col md:flex-row items-center justify-between gap-5 md:gap-0 px-10 z-[10] md:z-[30] overflow-hidden "
+        className="relative py-12 md:py-16 px-16 md:px-32 rounded-[40px] max-w-5xl w-full flex flex-col md:flex-row items-center justify-between gap-5 md:gap-0 z-[10] md:z-[30] overflow-hidden backdrop-blur-sm"
         style={{
-          boxShadow: '0px 0px 50.9px 0px #00000040',
+          boxShadow: '0px 0px 50.9px 0px rgba(0, 0, 0, 0.15)',
         }}
       >
         <div
@@ -25,7 +25,7 @@ const LandingContent = () => {
 
         <div className="relative z-10 text-center md:pl-10">
           <h2 className="text-2xl md:text-3xl mb-[-17px] font-normal font-DM-Serif-Display text-[#002313]">
-            Your mind’s looking for
+            Your mind's looking for
           </h2>
           <h1 className="text-6xl md:text-9xl mt-3 md:mt-0 font-DM-Serif-Display text-[#002313] leading-none">
             Peace?

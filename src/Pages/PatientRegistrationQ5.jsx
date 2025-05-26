@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ5 = () => {
-  const navigate = useNavigate();
+const navigate = useNavigate();
+   const location = useLocation(); 
+  const prevResponses = location.state?.responses || []; 
 
-  const [religious, setReligious] = useState(null); // 'Yes' or 'No'
-  const [practiceLevel, setPracticeLevel] = useState(null); // 0,1,2
+  const [religious, setReligious] = useState(null); 
+  const [practiceLevel, setPracticeLevel] = useState(null); 
   const [error, setError] = useState(null);
 
   const handleNext = () => {
@@ -16,19 +18,19 @@ const RegisterQ5 = () => {
       setError("Please answer the main question.");
       return;
     }
-
+  
     if (religious === "Yes" && practiceLevel === null) {
       setError("Please indicate how often you practice.");
       return;
     }
-
-    // Save to localStorage as a single numeric value
-    const value = religious === "No" ? 3 : practiceLevel;
-    localStorage.setItem("religiousLevel", value);
-
+  
+    const score = religious === "No" ? 3 : practiceLevel;
+    const updatedResponses = [...prevResponses, score];
+  
     setError(null);
-    navigate("/Frontend/Register-Q6"); // adjust as needed
+    navigate("/Frontend/Register-Q6", { state: { responses: updatedResponses } });
   };
+  
 
   return (
     <BackgroundWrapper>

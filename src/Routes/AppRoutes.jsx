@@ -56,7 +56,7 @@ const AppRoutes = () => {
       <Route path="/Frontend/Register-Q15" element={<RegisterQ15/>}/>
       <Route path="/Frontend/Register-Q16" element={<RegisterQ16/>}/>
       <Route path="/Frontend/Register-Q17" element={<RegisterQ17/>}/>
-      
+
 
 
     </Routes>

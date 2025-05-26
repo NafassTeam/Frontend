@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard";
 import NextQ1Button from "/src/Components/Registration/NextQ1Button";
 
 const RegisterQ9 = () => {
   const navigate = useNavigate();
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
 
   const [need, setNeed] = useState("");
   const [error, setError] = useState("");
@@ -17,18 +19,17 @@ const RegisterQ9 = () => {
   ];
 
   const handleNext = () => {
-    if (!need) {
-      setError("Please select one of the options.");
-      return;
-    }
+  if (!need) {
+    setError("Please select one of the options.");
+    return;
+  }
 
-    const selected = options.find((o) => o.label === need);
-    const fullResponse = `${selected.label} (${selected.score})`;
+  const selected = options.find((o) => o.label === need);
+  if (!selected) return;
 
-    localStorage.setItem("therapist_need", fullResponse); // Save full response like "Help (0)"
-
-    navigate("/Frontend/Register-Q10");
-  };
+  const updatedResponses = [...prevResponses, selected.score];
+  navigate("/Frontend/Register-Q10", { state: { responses: updatedResponses } });
+};
 
   return (
     <BackgroundWrapper>

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ4 = () => {
   const navigate = useNavigate();
+   const location = useLocation(); 
+  const prevResponses = location.state?.responses || []; 
+  
 
   const [hadTherapy, setHadTherapy] = useState(null);
   const [helpful, setHelpful] = useState(null);
@@ -30,10 +33,10 @@ const RegisterQ4 = () => {
       therapyResponse = 2;
     }
 
-    localStorage.setItem("therapyExperience", therapyResponse);
-
     setError(null);
-    navigate("/Frontend/Register-Q5");
+    const updatedResponses = [...prevResponses, therapyResponse]; 
+    navigate("/Frontend/Register-Q5", { state: { responses: updatedResponses } });
+    
   };
 
   return (

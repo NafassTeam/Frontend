@@ -23,17 +23,17 @@ const MenuBurger = () => {
 
       {isOpen && (
         <div className="md:hidden flex flex-col items-center basis-full gap-4 mt-4">
-          <Link to="/Apply" className="text-white text-lg">
+          <Link to="/Frontend/Apply" className="text-white text-lg">
             Apply for Nafass Job
           </Link>
-          <Link to="/Why" className="text-white text-lg">
+          <Link to="/Frontend/Why" className="text-white text-lg">
             Why Nafass
           </Link>
-          <Link to="/Help" className="text-white text-lg">
+          <Link to="/Frontend/Help" className="text-white text-lg">
             Help
           </Link>
           <Link
-            to="/Login"
+            to="/Frontend/Login"
             className="border border-white rounded-full px-4 py-1 text-white"
           >
             Login

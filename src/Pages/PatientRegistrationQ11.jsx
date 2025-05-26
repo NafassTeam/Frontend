@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ11 = () => {
   const navigate = useNavigate();
-  const [financialSituation, setFinancialSituation] = useState("");
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
+ 
+ const [financialSituation, setFinancialSituation] = useState("");
   const [error, setError] = useState(null);
 
   const options = [
@@ -19,14 +22,15 @@ const RegisterQ11 = () => {
       setError("Please select your financial situation to continue.");
       return;
     }
-
+  
     const selected = options.find((opt) => opt.label === financialSituation);
-    const fullResponse = `${selected.label} (${selected.score})`;
-
-    localStorage.setItem("financial_situation", fullResponse); // Save full value
+    if (!selected) return;
+  
+    const updatedResponses = [...prevResponses, selected.score];
     setError(null);
-    navigate("/Frontend/Register-Q12"); // Update with your next question route
+    navigate("/Frontend/Register-Q12", { state: { responses: updatedResponses } });
   };
+  
 
   return (
     <BackgroundWrapper>

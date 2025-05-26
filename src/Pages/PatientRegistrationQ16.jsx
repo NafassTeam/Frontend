@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard.jsx";
 import NextQ1Button from "../Components/Registration/NextQ1Button.jsx";
 
 const RegisterQ16 = () => {
   const navigate = useNavigate();
-  const [selectedProblem, setSelectedProblem] = useState(null); // Store a single selected problem
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
+ 
+ const [selectedProblem, setSelectedProblem] = useState(null); 
   const [error, setError] = useState(null);
 
   const problems = [
@@ -28,7 +31,7 @@ const RegisterQ16 = () => {
   ];
 
   const handleCheckboxChange = (index) => {
-    setSelectedProblem(index + 1); // Set only the selected problem as numeric value
+    setSelectedProblem(index + 1); 
   };
 
   const handleNext = () => {
@@ -37,13 +40,14 @@ const RegisterQ16 = () => {
       return;
     }
 
+    
+    const updatedResponses = [...prevResponses,selectedProblem]; 
     setError(null);
-    localStorage.setItem("problem", selectedProblem); // Save the selected problem as a number to localStorage
-    navigate("/Frontend/Register-Q17"); // Adjust this route to the next question
+    navigate("/Frontend/Register-Q17", { state: { responses: updatedResponses } }); 
   };
 
   const isNextDisabled = () => {
-    return selectedProblem === null; // Disable Next button until one choice is made
+    return selectedProblem === null; 
   };
 
   return (

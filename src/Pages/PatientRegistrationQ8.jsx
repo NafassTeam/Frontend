@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard";
 import NextQ1Button from "/src/Components/Registration/NextQ1Button";
 
 const RegisterQ8 = () => {
   const navigate = useNavigate();
+  const location = useLocation(); 
+ const prevResponses = location.state?.responses || []; 
 
   const [relationshipStatus, setRelationshipStatus] = useState("");
   const [error, setError] = useState("");
@@ -18,18 +20,18 @@ const RegisterQ8 = () => {
   ];
 
   const handleNext = () => {
-    if (!relationshipStatus) {
-      setError("Please select your relationship status.");
-      return;
-    }
+  if (!relationshipStatus) {
+    setError("Please select your relationship status.");
+    return;
+  }
 
-    const selected = options.find((o) => o.label === relationshipStatus);
-    const fullResponse = `${selected.label} (${selected.score})`;
+  const selected = options.find((o) => o.label === relationshipStatus);
+  if (!selected) return;
 
-    localStorage.setItem("relationship_status", fullResponse); // Save full response like "Single (1)"
+  const updatedResponses = [...prevResponses, selected.score];
+  navigate("/Frontend/Register-Q9", { state: { responses: updatedResponses } });
+};
 
-    navigate("/Frontend/Register-Q9");
-  };
 
   return (
     <BackgroundWrapper>

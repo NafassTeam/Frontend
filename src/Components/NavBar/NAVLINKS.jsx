@@ -1,44 +1,69 @@
-import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+
+const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+};
 
 const NavLinks = () => {
-    return ( 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isHomePage = location.pathname === "/" || location.pathname === "/Frontend";
+    
+    const handleNavigation = (sectionId) => {
+        if (isHomePage) {
+            scrollToSection(sectionId);
+        } else {
+            navigate('/Frontend', { state: { scrollTo: sectionId } });
+        }
+    };
+    
+    return (
         <div className="flex space-x-8 text-white text-sm font-inter">
-            <NavLink
-                to="/Frontend/apply"
-                className={({ isActive }) =>
-                    isActive ? "text-[#BFFF66]" : "hover:text-[#5FE086] transition-colors"
-                }
+            <button
+                onClick={() => navigate('/Frontend/Apply')}
+                className="hover:text-[#5FE086] transition-colors"
             >
                 Apply for Nafass Job
-            </NavLink>
+            </button>
 
-            <NavLink
-                to="/Frontend/why"
-                className={({ isActive }) =>
-                    isActive ? "text-[#BFFF66]" : "hover:text-[#5FE086] transition-colors"
-                }
+            <button
+                onClick={() => handleNavigation('why-nafass')}
+                className="hover:text-[#5FE086] transition-colors"
             >
                 Why Nafass
-            </NavLink>
+            </button>
 
-            <NavLink
-                to="/Frontend/help"
-                className={({ isActive }) =>
-                    isActive ? "text-[#BFFF66]" : "hover:text-[#5FE086] transition-colors"
-                }
+            <button
+                onClick={() => handleNavigation('help')}
+                className="hover:text-[#5FE086] transition-colors"
             >
                 Help
-            </NavLink>
+            </button>
         </div>
     );
 };
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isHomePage = location.pathname === "/" || location.pathname === "/Frontend";
 
     const toggleNavbar = () => setIsOpen(!isOpen);
+
+    const handleNavigation = (sectionId) => {
+        if (isHomePage) {
+            scrollToSection(sectionId);
+        } else {
+            navigate('/Frontend', { state: { scrollTo: sectionId } });
+        }
+        toggleNavbar();
+    };
 
     return (
         <>
@@ -50,51 +75,35 @@ const Navbar = () => {
 
             {isOpen && (
                 <div className="md:hidden flex flex-col items-center gap-4 mt-4">
-                    <NavLink
-                        to="/Frontend/apply"
-                        className={({ isActive }) =>
-                            `text-lg ${
-                                isActive ? "text-[#BFFF66]" : "text-white hover:text-[#5FE086] transition-colors"
-                            }`
-                        }
+                    <button
+                        onClick={() => {
+                            navigate('/Frontend/Apply');
+                            toggleNavbar();
+                        }}
+                        className="text-lg text-white hover:text-[#5FE086] transition-colors"
                     >
                         Apply for Nafass Job
-                    </NavLink>
+                    </button>
 
-                    <NavLink
-                        to="/Frontend/why"
-                        className={({ isActive }) =>
-                            `text-lg ${
-                                isActive ? "text-[#BFFF66]" : "text-white hover:text-[#5FE086] transition-colors"
-                            }`
-                        }
+                    <button
+                        onClick={() => handleNavigation('why-nafass')}
+                        className="text-lg text-white hover:text-[#5FE086] transition-colors"
                     >
                         Why Nafass
-                    </NavLink>
+                    </button>
 
-                    <NavLink
-                        to="/Frontend/help"
-                        className={({ isActive }) =>
-                            `text-lg ${
-                                isActive ? "text-[#BFFF66]" : "text-white hover:text-[#5FE086] transition-colors"
-                            }`
-                        }
+                    <button
+                        onClick={() => handleNavigation('help')}
+                        className="text-lg text-white hover:text-[#5FE086] transition-colors"
                     >
                         Help
-                    </NavLink>
+                    </button>
 
-                    <NavLink
-                        to="/Frontend/Login"
-                        className={({ isActive }) =>
-                            `border border-white rounded-full px-4 py-1 transition-colors ${
-                                isActive
-                                    ? "bg-white text-black"
-                                    : "text-white bg-transparent hover:bg-white hover:text-black"
-                            }`
-                        }
+                    <button
+                        className="border border-white rounded-full px-4 py-1 transition-colors text-white bg-transparent hover:bg-white hover:text-black"
                     >
                         Login
-                    </NavLink>
+                    </button>
                 </div>
             )}
 
