@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useMemo } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import BackgroundWrapper from "/src/Components/BackgroundWrapper.jsx";
 import AuthCard from "/src/Components/Registration/AuthCard";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const responses = useMemo(() => location.state?.responses || [], [location.state]);
   const MOCK = true; //trj3 false kinlinkiw bel backend
 
   const [formData, setFormData] = useState({
@@ -13,6 +15,7 @@ const RegisterForm = () => {
     last_name: "",
     email: "",
     password: "",
+    username: "",
     agree: false,
   });
 
@@ -44,14 +47,23 @@ const RegisterForm = () => {
 
     // when linked
     try {
+      const gender =
+        responses && responses.length > 0
+          ? responses[0] === 0
+            ? "M"
+            : responses[0] === 1
+              ? "F"
+              : "M"
+          : "M";
+
       const response = await axios.post("https://nafassbackend-production.up.railway.app/auth/register/patient/", {
         first_name: formData.first_name,
         last_name: formData.last_name,
         email: formData.email,
         password: formData.password,
-        role : "patient",
-        gender : "M",
-        username : formData.email.split("@")[0], // using email prefix as username
+        role: "patient",
+        gender: gender,
+        username: formData.username,
       });
 
       console.log("Registration successful:", response.data);
@@ -62,6 +74,12 @@ const RegisterForm = () => {
       setError("An error occurred during registration. Please try again.");
     }
   };
+
+  React.useEffect(() => {
+    if (responses.length > 0) {
+      console.log("Received questionnaire responses:", responses);
+    }
+  }, [responses]);
 
   return (
     <BackgroundWrapper>
@@ -84,6 +102,14 @@ const RegisterForm = () => {
               type="text"
               placeholder="Last Name"
               value={formData.last_name}
+              onChange={handleChange}
+              className="font-mulish w-[350px] mx-auto block px-4 py-2 border-b-[2.5px] border-[#002a17] bg-transparent text-[#000000] font-light text-sm placeholder-black focus:outline-none"
+            />
+            <input
+              name="username"
+              type="text"
+              placeholder="Username"
+              value={formData.username}
               onChange={handleChange}
               className="font-mulish w-[350px] mx-auto block px-4 py-2 border-b-[2.5px] border-[#002a17] bg-transparent text-[#000000] font-light text-sm placeholder-black focus:outline-none"
             />

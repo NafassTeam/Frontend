@@ -19,6 +19,8 @@ const RegisterQ17 = () => {
     }
 
     const updatedResponses = [...prevResponses,consumptionStatus];
+    console.log("Updated responses:", updatedResponses);
+    
     setError(null);
     navigate("/Frontend/Register", { state: { responses: updatedResponses } }); 
   };
