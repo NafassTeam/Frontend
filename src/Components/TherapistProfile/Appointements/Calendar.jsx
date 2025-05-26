@@ -1,16 +1,16 @@
 import React from 'react';
 import {
   format,
-  isSameDay,
   startOfMonth,
   endOfMonth,
   eachDayOfInterval,
   startOfWeek,
   endOfWeek,
   addMonths,
+  isSameDay,
 } from 'date-fns';
 
-const Calendar = ({ selectedDate, setSelectedDate }) => {
+const Calendar = ({ selectedDate, setSelectedDate, appointments, hasPendingAppointments }) => {
   const firstDayOfMonth = startOfMonth(selectedDate);
   const lastDayOfMonth = endOfMonth(selectedDate);
   const calendarStart = startOfWeek(firstDayOfMonth, { weekStartsOn: 0 });
@@ -19,8 +19,8 @@ const Calendar = ({ selectedDate, setSelectedDate }) => {
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 select-none w-full">
-      <div className="flex justify-between items-center mb-4 px-2">
+    <div className="bg-white rounded-lg shadow p-4 select-none w-full h-100 mt-[-3px]">
+      <div className="flex justify-between items-center px-2">
         <button 
           onClick={() => setSelectedDate(addMonths(selectedDate, -1))} 
           className="text-[#00541C] font-bold px-2 hover:text-[#003d0f]"
@@ -46,20 +46,23 @@ const Calendar = ({ selectedDate, setSelectedDate }) => {
 
       <div className="grid grid-cols-7 gap-1">
         {days.map((day) => {
-          const isSelected = isSameDay(day, selectedDate);
           const isCurrentMonth = day.getMonth() === selectedDate.getMonth();
-
+          const hasPending = hasPendingAppointments(day);
+          
           return (
             <button
               key={day.toISOString()}
               onClick={() => setSelectedDate(day)}
-              className={`p-2 rounded-md cursor-pointer text-center text-[10px]  
+              className={`p-2 rounded-md cursor-pointer text-center text-[10px] relative
                 ${isCurrentMonth ? '' : 'text-gray-400'} 
-                ${isSelected ? 'bg-[#00541C] text-white font-bold' : 'bg-gray-100 hover:bg-gray-300'}
+                ${isSameDay(day, selectedDate) ? 'bg-[#00541C] text-white font-bold' : 'bg-gray-100 hover:bg-gray-300'}
                 w-14 h-14 md:h-9 md:w-9`}
               title={format(day, 'MMMM do, yyyy')}
             >
               {format(day, 'd')}
+              {hasPending && (
+                <span className="absolute top-1 right-1 w-1 h-1 bg-red-500 rounded-full"></span>
+              )}
             </button>
           );
         })}
@@ -80,6 +83,7 @@ const Calendar = ({ selectedDate, setSelectedDate }) => {
           <div className="flex items-center gap-2">
             <span className="w-4 h-4 rounded-full bg-blue-500 inline-block"></span> Rescheduled
           </div>
+          
         </div>
       </div>
     </div>
