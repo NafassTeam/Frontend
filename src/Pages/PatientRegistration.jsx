@@ -64,6 +64,7 @@ const RegisterForm = () => {
         role: "patient",
         gender: gender,
         username: formData.username,
+        questionnaire_result : responses.length > 0 ? responses : [],
       });
 
       console.log("Registration successful:", response.data);

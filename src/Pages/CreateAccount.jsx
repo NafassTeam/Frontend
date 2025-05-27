@@ -61,27 +61,29 @@ const CreateAccount = () => {
     };
     console.log('Combined data:', combinedData);
     try {
-    //   combinedData = {
-    //     "address": "3131  Doctors Drive",
-    //     "agreed": true,
-    //     "birth_date": "2025-04-18",
-    //     "city": "CA",
-    //     "country": "Algeria",
-    //     "diploma": "sdfdf",
-    //     "email": "selloudsdfsfmfsdmoncif.555@gmail.com",
-    //     "experience_years": "123",
-    //     "first_name": "Moncif",
-    //     "gender": "F",
-    //     "languages": "sdfsdf",
-    //     "last_name": "Selloum",
-    //     "license": "sdfsdfsdf",
-    //     "password": "moncif.0202",
-    //     "phone_number": "0667075016",
-    //     "specializations": "sdfsdf",
-    //     "title": "fsdf",
-    //     "university": "sdf",
-    //     "username" : "usersdfsf121212"
-    // }
+      combinedData = {
+        "address": "3131  Doctors Drive",
+        "agreed": true,
+        "birth_date": "2004-04-04",
+        "city": "CA",
+        "province": "California",
+        "country": "Algeria",
+        "degree": "university",
+        "email": "yc.chikhaoui@esi-sba.dz",  // mock email
+        "experience_years": "12",
+        "first_name": "Youcef Chihab Eddine", // mock first name
+        "gender": "M",
+        "languages_spoken": "English, French, Arabic",
+        "last_name": "Chikhaoui", // mock last name
+        "autorization_number": "123456789",
+        "password": "password123",
+        "phone_number": "+213666123456",
+        "specialization": "Psychology, Counseling",
+        "professional_title": "Dr.",
+        "university": "University of Algiers",
+        "username" : "chihab_chikhaoui", // mock username
+        "features" : [0, 27, 25, 2, 0, 2, 2, 2, 0, 2, 0, 1] // mock features
+    }
       axios.post('https://nafassbackend-production.up.railway.app/auth/register/therapist/', combinedData)
         .then(response => {
           console.log('Account created successfully:', response.data);

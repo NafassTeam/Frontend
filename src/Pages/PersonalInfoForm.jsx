@@ -49,6 +49,8 @@ const PersonalInfoForm = () => {
 
       // // Handle success
       if (response.status === 201) {
+        // Optionally show a success message or perform additional actions
+        // For now, navigate to the next page (already done above)
       } else {
         setError('Unexpected response from the server. Please try again.');
       }
