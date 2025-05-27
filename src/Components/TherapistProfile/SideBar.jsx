@@ -61,7 +61,7 @@ const SideBar = () => {
     ];
 
     return (
-        <aside className="w-[170px] h-[630px] bg-white opacity-90 p-4 mt-3 rounded-[15px] ml-3 z-20 absolute drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)]">
+        <aside className="w-[170px] h-[600px] bg-white opacity-90 p-4 mt-3 rounded-[15px] ml-3 z-20 absolute drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)]">
             <div className="flex flex-col items-center">
                 {user ? (
                     <div className="flex flex-col items-center mb-4">
